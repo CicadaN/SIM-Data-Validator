@@ -1,6 +1,10 @@
 import hexlet.code.Validator;
 import hexlet.code.schemas.*;
 import org.junit.jupiter.api.Test;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class AppTest {
@@ -38,8 +42,6 @@ public class AppTest {
         var schema = v.number();
 
         assertTrue(schema.isValid(5)); // true
-
-// Пока не вызван метод required(), null считается валидным
         assertTrue(schema.isValid(null)); // true
         assertTrue(schema.positive().isValid(null)); // true
 
@@ -48,9 +50,7 @@ public class AppTest {
         assertFalse(schema.isValid(null)); // false
         assertTrue(schema.isValid(10)); // true
 
-// Потому что ранее мы вызвали метод positive()
         assertFalse(schema.isValid(-10)); // false
-//  Ноль — не положительное число
         assertFalse(schema.isValid(0)); // false
 
         schema.range(5, 10);
@@ -59,5 +59,27 @@ public class AppTest {
         assertTrue(schema.isValid(10)); // true
         assertFalse(schema.isValid(4)); // false
         assertFalse(schema.isValid(11)); // false
+    }
+
+    @Test
+    public void testMapSchema() {
+        Validator v = new Validator();
+        MapSchema schema = v.map();
+
+        assertTrue(schema.isValid(null)); // true
+
+        schema.required();
+        assertFalse(schema.isValid(null)); // false
+        assertTrue(schema.isValid(new HashMap<>())); // true
+
+        Map<String, String> data = new HashMap<>();
+        data.put("key1", "value1");
+        assertTrue(schema.isValid(data)); // true
+
+        schema.sizeOf(2);
+        assertFalse(schema.isValid(data));  // false
+
+        data.put("key2", "value2");
+        assertTrue(schema.isValid(data)); // true
     }
 }
