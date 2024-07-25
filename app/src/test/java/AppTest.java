@@ -27,7 +27,7 @@ public class AppTest {
         schema.contains("whatthe");
         assertFalse(schema.isValid("what does the fox say")); // false
 
-        StringSchema schema1 = v.string();
+        var schema1 = v.string();
         schema1.minLength(10).minLength(4);
         assertTrue(schema1.isValid("Hexlet")); // true
 
@@ -72,7 +72,7 @@ public class AppTest {
         assertFalse(schema.isValid(null)); // false
         assertTrue(schema.isValid(new HashMap<>())); // true
 
-        Map<String, String> data = new HashMap<>();
+        Map<String, Object> data = new HashMap<>();
         data.put("key1", "value1");
         assertTrue(schema.isValid(data)); // true
 
@@ -81,5 +81,32 @@ public class AppTest {
 
         data.put("key2", "value2");
         assertTrue(schema.isValid(data)); // true
+    }
+
+    @Test
+    public void testMapSchemaShape() {
+        Validator v = new Validator();
+        var schema = v.map();
+
+        Map<String, BaseSchema<?>>  schemas = new HashMap<>();
+        schemas.put("firstName", v.string().required());
+        schemas.put("lastName", v.string().required().minLength(2));
+
+        schema.shape(schemas);
+
+        Map<String, Object> human1 = new HashMap<>();
+        human1.put("firstName", "John");
+        human1.put("lastName", "Smith");
+        assertTrue(schema.isValid(human1)); // true
+
+        Map<String, Object> human2 = new HashMap<>();
+        human2.put("firstName", "John");
+        human2.put("lastName", null);
+        assertFalse(schema.isValid(human2)); // false
+
+        Map<String, Object> human3 = new HashMap<>();
+        human3.put("firstName", "Anna");
+        human3.put("lastName", "B");
+        assertFalse(schema.isValid(human3)); // false
     }
 }
