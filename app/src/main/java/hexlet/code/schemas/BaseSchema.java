@@ -8,7 +8,7 @@ public abstract class BaseSchema<T> {
     protected boolean requiredStatus = false;
     protected Map<String, Predicate<T>> validations = new LinkedHashMap<>();
 
-    public boolean isValid(T value) {
+    public final boolean isValid(T value) {
         if (value == null) {
             return !requiredStatus;
         } else {
@@ -18,7 +18,7 @@ public abstract class BaseSchema<T> {
         }
     }
 
-    protected void addValidations(String name, Predicate<T> check) {
+    protected final void addValidations(String name, Predicate<T> check) {
         validations.put(name, check);
     }
 }
