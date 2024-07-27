@@ -80,7 +80,7 @@ public class AppTest {
         data.put("key1", "value1");
         assertTrue(schema.isValid(data)); // true
 
-        schema.sizeOf(2);
+        schema.sizeof(2);
         assertFalse(schema.isValid(data));  // false
 
         data.put("key2", "value2");
