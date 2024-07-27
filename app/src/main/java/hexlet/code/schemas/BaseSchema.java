@@ -14,11 +14,11 @@ public abstract class BaseSchema<T> {
         } else {
             return validations.values()
                     .stream()
-                    .allMatch(validations -> validations.test(value));
+                    .allMatch(validation -> validation.test(value));
         }
     }
 
-    protected void addValidations(String name, Predicate<T> check){
+    protected void addValidations(String name, Predicate<T> check) {
         validations.put(name, check);
     }
 }

@@ -1,6 +1,6 @@
 package hexlet.code.schemas;
 
-public class StringSchema extends BaseSchema<String>{
+public class StringSchema extends BaseSchema<String> {
 
     public StringSchema required() {
         requiredStatus = true;
@@ -9,8 +9,8 @@ public class StringSchema extends BaseSchema<String>{
     }
 
     public StringSchema minLength(int minLength) {
-       addValidations("minLength", s -> s.length() >= minLength);
-       return this;
+        addValidations("minLength", s -> s.length() >= minLength);
+        return this;
     }
 
     public StringSchema contains(String text) {

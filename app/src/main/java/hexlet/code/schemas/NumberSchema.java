@@ -10,13 +10,15 @@ public class NumberSchema extends BaseSchema<Integer> {
         return this;
     }
 
-    public NumberSchema positive(){
+    public NumberSchema positive() {
         addValidations("positive", num -> num > 0);
         return this;
     }
 
     public NumberSchema range(int minRange, int maxRange) {
-        if (maxRange < minRange) throw new IllegalArgumentException("MinRange должен быть меньше MaxRange!");
+        if (maxRange < minRange) {
+            throw new IllegalArgumentException("MinRange должен быть меньше MaxRange!");
+        }
         addValidations("range", num -> num >= minRange && num <= maxRange);
         return this;
     }
