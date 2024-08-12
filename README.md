@@ -3,21 +3,21 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/f6e9d2044042ec26f306/maintainability)](https://codeclimate.com/github/CicadaN/java-project-78/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/f6e9d2044042ec26f306/test_coverage)](https://codeclimate.com/github/CicadaN/java-project-78/test_coverage)
 
-# Валидатор данных
+# Data Validator
 
-Данный проект реализует библиотеку с помощью которой можно проверить корректность различных типов данных, таких как String, Integer и Map. Этот проект реализует гибкие схемы валидации, которые можно легко настраивать и использовать для проверки соответствия данных различным условиям.
+This project implements a library that allows you to check the validity of various data types, such as String, Integer, and Map. The project features flexible validation schemas that can be easily customized and used to verify that data meets various conditions.
 
+## Project Structure
 
-## Структура проекта
+1. **BaseSchema**: An abstract class for validation schemas.
+2. **StringSchema**: Validation for Strings (inherits from BaseSchema<String>).
+3. **NumberSchema**: Validation for Integers (inherits from BaseSchema<Integer>).
+4. **MapSchema**: Validation for Map objects (inherits from BaseSchema<Map>).
+5. **Validator**: A class with factory methods for creating instances of validation schemas.
 
-1. **BaseSchema**: Абстрактный класс для схем валидации.
-2. **StringSchema**: Валидация String (наследует BaseSchema<String>).
-3. **NumberSchema**: Валидация Integer (наследует BaseSchema<Integer>).
-4. **MapSchema**: Валидация объектов типа Map (наследует BaseSchema<Map>).
-5. **Validator**: Класс с фабричными методами для создания экземпляров схем валидации
+## Usage Examples:
 
-## Использование
-### Валидация строк
+### Validation of Strings
 ```java
 Validator validator = new Validator();
 StringSchema schema = validator.string();
@@ -27,7 +27,7 @@ schema.required().minLength(5).contains("hexlet");
 boolean isValid = schema.isValid("hexlet"); // true
 isValid = schema.isValid("hex"); // false
 ```
-### Валидация строк
+### Validation of Number
 ```java
 Validator validator = new Validator();
 NumberSchema schema = validator.number();
@@ -38,7 +38,7 @@ boolean isValid = schema.isValid(5); // true
 isValid = schema.isValid(0); // false
 isValid = schema.isValid(11); // false
 ```
-### Валидация объектов типа Map
+### Validation of Map type objects
 ```java
 Validator validator = new Validator();
 MapSchema schema = validator.map();
@@ -51,7 +51,7 @@ data.put("key2", "value2");
 
 boolean isValid = schema.isValid(data); // true
 ```
-### Вложенная валидация карт (Map)
+### Nested Map Validation (Map)
 ```java
 Validator v = new Validator();
 var schema = v.map();
